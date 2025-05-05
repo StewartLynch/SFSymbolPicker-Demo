@@ -18,14 +18,131 @@
 import SwiftUI
 
 struct ContentView: View {
+    // Default images
+    @State private var allCategoriesImage = "square.grid.2x2"
+    @State private var singleCategoryImage = "person.crop.circle"
+    @State private var mixedCategoriesImage = "bicycle"
+    @State private var searchTermImage = "figure.cooldown"
+    // Presentation Triggers
+    @State private var showAll = false
+    @State private var showSingle = false
+    @State private var showMixed = false
+    @State private var showSearchTerm = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            Form {
+                Section {
+                    HStack {
+                        Text(
+"""
+SymbolView(
+    loader: loader, // SymbolLoader instance
+    selectedSymbol: $allCategoriesImage
+)
+"""
+                        )
+                        .font(.system(size: 12))
+                        .fixedSize(horizontal: true, vertical: false)
+                        .foregroundStyle(.secondary)
+                        Button {
+                            showAll = true
+                        } label: {
+                            Image(systemName: allCategoriesImage)
+                        }
+                        .foregroundStyle(.red)
+                        .font(.largeTitle)
+                        .buttonStyle(.plain)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                } header: {
+                    Text("All Categories Available")
+                }
+                Section {
+                    HStack{
+                        Text(
+"""
+SymbolView(
+    loader: loader, // SymbolLoader instance
+    selectedSymbol: $singleCategoryImage,
+    limitedCategories: [.human]
+)
+""")
+                        .font(.system(size: 12))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: true, vertical: false)
+                        Spacer()
+                        Button {
+                            showSingle = true
+                        } label: {
+                            Image(systemName: singleCategoryImage)
+                        }
+                        .foregroundStyle(.green)
+                        .font(.largeTitle)
+                        .buttonStyle(.plain)
+                    }
+                } header: {
+                    Text("Single Category Available")
+                }
+                Section {
+                    HStack{
+                        Text(
+"""
+SymbolView(
+    loader: loader, // SymbolLoader instance
+    selectedSymbol: $mixedCategoriesImage,
+    limitedCategories: [
+          .transportation, 
+          .objectsandtools
+    ]
+)
+""")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: true, vertical: false)
+                        Spacer()
+                        Button {
+                            showMixed = true
+                        } label: {
+                            Image(systemName: mixedCategoriesImage)
+                        }
+                        .foregroundStyle(.blue)
+                        .font(.largeTitle)
+                        .buttonStyle(.plain)
+                        
+                    }
+                } header: {
+                    Text("Multiple Categories Only")
+                }
+                Section {
+                    HStack{
+                        Text(
+"""
+SymbolView(
+    loader: loader, // SymbolLoader instance
+    selectedSymbol: $searchTermImage,
+    searchTerm: "sport"
+)
+""")
+                        .font(.system(size: 12))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: true, vertical: false)
+                        Spacer()
+                        Button {
+                            showSearchTerm = true
+                        } label: {
+                            Image(systemName: searchTermImage)
+                        }
+                        .foregroundStyle(.purple)
+                        .font(.largeTitle)
+                        .buttonStyle(.plain)
+                    }
+                } header: {
+                    Text("Search Term only")
+                }
+            }
+            .navigationTitle("SF Symbol Picker")
         }
-        .padding()
     }
 }
 
