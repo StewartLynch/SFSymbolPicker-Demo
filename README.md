@@ -1,8 +1,6 @@
 # SFSymbol Picker Demo
 
-![mac128](Images/mac128.png) This is the starter project for the video on creating an SFSymbol Picker
-
-Release Date: June 15, 2025
+![mac128](Images/mac128.png) This is the completed source code for the video on creating an SFSymbol Picker
 
 If you want to support my work, you can - </br>
 
