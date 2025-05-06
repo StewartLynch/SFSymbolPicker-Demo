@@ -29,6 +29,8 @@ struct ContentView: View {
     @State private var showMixed = false
     @State private var showSearchTerm = false
     
+    @State private var loader = SymbolLoader()
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -54,6 +56,9 @@ SymbolView(
                         .font(.largeTitle)
                         .buttonStyle(.plain)
                         .frame(maxWidth: .infinity, alignment: .trailing)
+                        .sheet(isPresented: $showAll) {
+                            SymbolView(loader: loader, selectedSymbol: $allCategoriesImage)
+                        }
                     }
                 } header: {
                     Text("All Categories Available")
@@ -80,6 +85,15 @@ SymbolView(
                         .foregroundStyle(.green)
                         .font(.largeTitle)
                         .buttonStyle(.plain)
+                        .popover(isPresented: $showSingle) {
+                            SymbolView(
+                                loader: loader,
+                                selectedSymbol: $singleCategoryImage,
+                                limitedCategories: [.human]
+                            )
+                            .frame(width: 300, height: 300)
+                            .presentationCompactAdaptation(.popover)
+                        }
                     }
                 } header: {
                     Text("Single Category Available")
@@ -109,7 +123,14 @@ SymbolView(
                         .foregroundStyle(.blue)
                         .font(.largeTitle)
                         .buttonStyle(.plain)
-                        
+                        .sheet(isPresented: $showMixed) {
+                            SymbolView(
+                                loader: loader,
+                                selectedSymbol: $mixedCategoriesImage,
+                                limitedCategories: [.transportation, .objectsandtools]
+                            )
+                            .presentationDetents([.medium])
+                        }
                     }
                 } header: {
                     Text("Multiple Categories Only")
@@ -136,6 +157,15 @@ SymbolView(
                         .foregroundStyle(.purple)
                         .font(.largeTitle)
                         .buttonStyle(.plain)
+                        .popover(isPresented: $showSearchTerm) {
+                            SymbolView(
+                                loader: loader,
+                                selectedSymbol: $searchTermImage,
+                                searchTerm: "sport"
+                            )
+                            .frame(width: 300, height: 300)
+                            .presentationCompactAdaptation(.popover)
+                        }
                     }
                 } header: {
                     Text("Search Term only")
@@ -143,6 +173,11 @@ SymbolView(
             }
             .navigationTitle("SF Symbol Picker")
         }
+//        .onAppear {
+//            let categories = loader.categories.map {$0.key}
+//            let cases = categories.joined(separator: ", ")
+//            print(cases)
+//        }
     }
 }
 
