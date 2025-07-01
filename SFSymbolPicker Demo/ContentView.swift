@@ -56,9 +56,9 @@ SymbolView(
                         .font(.largeTitle)
                         .buttonStyle(.plain)
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .sheet(isPresented: $showAll) {
-                            SymbolView(loader: loader, selectedSymbol: $allCategoriesImage)
-                        }
+                    }
+                    .sheet(isPresented: $showAll) {
+                        SymbolView(loader: loader, selectedSymbol: $allCategoriesImage)
                     }
                 } header: {
                     Text("All Categories Available")
@@ -123,14 +123,14 @@ SymbolView(
                         .foregroundStyle(.blue)
                         .font(.largeTitle)
                         .buttonStyle(.plain)
-                        .sheet(isPresented: $showMixed) {
-                            SymbolView(
-                                loader: loader,
-                                selectedSymbol: $mixedCategoriesImage,
-                                limitedCategories: [.transportation, .objectsandtools]
-                            )
-                            .presentationDetents([.medium])
-                        }
+                    }
+                    .sheet(isPresented: $showMixed) {
+                        SymbolView(
+                            loader: loader,
+                            selectedSymbol: $mixedCategoriesImage,
+                            limitedCategories: [.transportation, .objectsandtools]
+                        )
+                        .presentationDetents([.medium])
                     }
                 } header: {
                     Text("Multiple Categories Only")
